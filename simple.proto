@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package shopping;
+
+service ShoppingService {
+    rpc AddProduct (Product) returns (ProductResponse);
+    rpc CreateUsers (stream User) returns (UserResponse);
+    rpc UpdateProduct (Product) returns (ProductResponse);
+    rpc RemoveProduct (ProductId) returns (ProductList);
+    rpc ListAvailableProducts (Empty) returns (ProductList);
+    rpc SearchProduct (ProductId) returns (ProductResponse);
+    rpc AddToCart (CartRequest) returns (CartResponse);
+    rpc PlaceOrder (UserId) returns (OrderResponse);
+}
+
+message Product {
+    string name = 1;
+    string description = 2;
+    double price = 3;
+    int32 stock_quantity = 4;
+    string sku = 5;
+    string status = 6;
+}
+
+message ProductResponse {
+    string message = 1;
+    Product product = 2;
+}
+
+message ProductId {
+    string sku = 1;
+}
+
+message ProductList {
+    repeated Product products = 1;
+}
+
+message User {
+    string user_id = 1;
+    string user_type  = 2; 
+}
+
+message UserResponse {
+    string message = 1;
+}
+
+message Empty {}
+
+message CartRequest {
+    string user_id = 1;
+    string sku = 2;
+}
+
+message CartResponse {
+    string message = 1;
+}
+
+message UserId {
+    string user_id = 1;
+}
+
+message OrderResponse {
+    string message = 1;
+}
